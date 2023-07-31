@@ -38,6 +38,14 @@ CREATE TABLE user_label (
   PRIMARY KEY (user_id, label_id)
 );
 
+
+CREATE TABLE project_label (
+  project_id INTEGER NOT NULL REFERENCES project(id),
+  label_id INTEGER NOT NULL REFERENCES label(id),
+  PRIMARY KEY (project_id, label_id)
+);
+
+
 CREATE TABLE user_data (
   user_id INTEGER NOT NULL REFERENCES user(id),
   key TEXT NOT NULL,
