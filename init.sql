@@ -8,13 +8,13 @@ CREATE TABLE label (
   name TEXT NOT NULL
 );
 
-CREATE TABLE user (
+CREATE TABLE customer (
   id SERIAL PRIMARY KEY,
   organization_id INTEGER NOT NULL REFERENCES organization(id),
   email TEXT NOT NULL, 
   password TEXT NOT NULL,
-  first_name TEXT,
-  last_name TEXT,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL
 );
 
 CREATE TABLE project (
@@ -26,16 +26,16 @@ CREATE TABLE project (
   end_date DATE
 );
 
-CREATE TABLE user_project (
-  user_id INTEGER NOT NULL REFERENCES user(id),
+CREATE TABLE customer_project (
+  customer_id INTEGER NOT NULL REFERENCES customer(id),
   project_id INTEGER NOT NULL REFERENCES project(id),
-  PRIMARY KEY (user_id, project_id)  
+  PRIMARY KEY (customer_id, project_id)  
 );
 
-CREATE TABLE user_label (
-  user_id INTEGER NOT NULL REFERENCES user(id),
+CREATE TABLE customer_label (
+  customer_id INTEGER NOT NULL REFERENCES customer(id),
   label_id INTEGER NOT NULL REFERENCES label(id),
-  PRIMARY KEY (user_id, label_id)
+  PRIMARY KEY (customer_id, label_id)
 );
 
 
@@ -46,9 +46,9 @@ CREATE TABLE project_label (
 );
 
 
-CREATE TABLE user_data (
-  user_id INTEGER NOT NULL REFERENCES user(id),
+CREATE TABLE customer_data (
+  customer_id INTEGER NOT NULL REFERENCES customer(id),
   key TEXT NOT NULL,
   value TEXT,
-  PRIMARY KEY (user_id, key)
+  PRIMARY KEY (customer_id, key)
 );
